@@ -27,7 +27,7 @@ CREATE TABLE nba_player_stats (
     minutes_played DECIMAL(5,2),
     plus_minus INTEGER,
     
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
 );
 
@@ -72,7 +72,7 @@ CREATE TABLE nfl_player_stats (
     -- Football-specific
     snap_count INTEGER,
     
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
 );
 
@@ -104,7 +104,7 @@ CREATE TABLE nhl_player_stats (
     save_percentage DECIMAL(5,3),
     shutouts INTEGER,
     
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
 );
 
@@ -133,7 +133,7 @@ CREATE TABLE cfb_player_stats (
     sacks DECIMAL(4,1),
     snap_count INTEGER,
     
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
 );
 
@@ -157,7 +157,7 @@ CREATE TABLE tennis_match_stats (
     break_points_saved INTEGER,
     service_games_played INTEGER,
     
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
 );
 
@@ -190,7 +190,7 @@ CREATE TABLE soccer_player_stats (
     goals_conceded INTEGER,
     clean_sheets INTEGER,
     
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
 );
 
@@ -216,7 +216,7 @@ CREATE TABLE lol_player_stats (
     wards_destroyed INTEGER,
     champion_played VARCHAR(100),
     
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
 );
 
@@ -241,7 +241,7 @@ CREATE TABLE cs2_player_stats (
     clutches_won INTEGER,
     first_kills INTEGER,
     
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
 );
 
