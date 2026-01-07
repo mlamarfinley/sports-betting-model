@@ -28,7 +28,7 @@ CREATE TABLE nba_player_stats (
     plus_minus INTEGER,
     
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT nba_stats_check CHECK (player_id IN (SELECT player_id FROM players WHERE sport = 'NBA'))
+
 );
 
 CREATE INDEX idx_nba_stats_player_game ON nba_player_stats(player_id, game_id);
@@ -73,7 +73,7 @@ CREATE TABLE nfl_player_stats (
     snap_count INTEGER,
     
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT nfl_stats_check CHECK (player_id IN (SELECT player_id FROM players WHERE sport = 'NFL'))
+
 );
 
 CREATE INDEX idx_nfl_stats_player_game ON nfl_player_stats(player_id, game_id);
@@ -105,7 +105,7 @@ CREATE TABLE nhl_player_stats (
     shutouts INTEGER,
     
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT nhl_stats_check CHECK (player_id IN (SELECT player_id FROM players WHERE sport = 'NHL'))
+
 );
 
 CREATE INDEX idx_nhl_stats_player_game ON nhl_player_stats(player_id, game_id);
@@ -134,7 +134,7 @@ CREATE TABLE cfb_player_stats (
     snap_count INTEGER,
     
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT cfb_stats_check CHECK (player_id IN (SELECT player_id FROM players WHERE sport = 'CFB'))
+
 );
 
 CREATE INDEX idx_cfb_stats_player_game ON cfb_player_stats(player_id, game_id);
@@ -158,7 +158,7 @@ CREATE TABLE tennis_match_stats (
     service_games_played INTEGER,
     
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT tennis_stats_check CHECK (player_id IN (SELECT player_id FROM players WHERE sport = 'TENNIS'))
+
 );
 
 CREATE INDEX idx_tennis_stats_player_game ON tennis_match_stats(player_id, game_id);
@@ -191,7 +191,7 @@ CREATE TABLE soccer_player_stats (
     clean_sheets INTEGER,
     
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT soccer_stats_check CHECK (player_id IN (SELECT player_id FROM players WHERE sport = 'SOCCER'))
+
 );
 
 CREATE INDEX idx_soccer_stats_player_game ON soccer_player_stats(player_id, game_id);
@@ -217,7 +217,7 @@ CREATE TABLE lol_player_stats (
     champion_played VARCHAR(100),
     
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT lol_stats_check CHECK (player_id IN (SELECT player_id FROM players WHERE sport = 'LOL'))
+
 );
 
 CREATE INDEX idx_lol_stats_player_game ON lol_player_stats(player_id, game_id);
@@ -242,7 +242,7 @@ CREATE TABLE cs2_player_stats (
     first_kills INTEGER,
     
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT cs2_stats_check CHECK (player_id IN (SELECT player_id FROM players WHERE sport = 'CS2'))
+
 );
 
 CREATE INDEX idx_cs2_stats_player_game ON cs2_player_stats(player_id, game_id);
