@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
 Database Migration Runner
-Runs all SQL migrations in the database/migrations folder
+Runs SQL migrations in the database/migrations folder
+Tracks completed migrations to avoid re-running them
 """
 
 import os
@@ -9,7 +10,7 @@ import psycopg2
 from pathlib import Path
 
 def run_migrations():
-    """Run all SQL migration files"""
+    """Run all SQL migration files that haven't been executed yet"""
     
     # Get database URL from environment variable
     database_url = os.getenv('DATABASE_URL')
@@ -25,14 +26,40 @@ def run_migrations():
         conn.autocommit = False
         cursor = conn.cursor()
         
+        # Create schema_migrations table if it doesn't exist
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS schema_migrations (
+                version VARCHAR(255) PRIMARY KEY,
+                executed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        """)
+        conn.commit()
+        
+        # Get list of already executed migrations
+        cursor.execute("SELECT version FROM schema_migrations")
+        executed_migrations = set(row[0] for row in cursor.fetchall())
+        
         # Get migration files
         migrations_dir = Path(__file__).parent / 'database' / 'migrations'
         migration_files = sorted(migrations_dir.glob('*.sql'))
         
-        print(f"Found {len(migration_files)} migration file(s)")
+        print(f"\nFound {len(migration_files)} migration file(s)")
         
-        for migration_file in migration_files:
-            print(f"\nRunning migration: {migration_file.name}")
+        migrations_to_run = [
+            f for f in migration_files 
+            if f.name not in executed_migrations
+        ]
+        
+        if not migrations_to_run:
+            print("✓ All migrations already executed. Database is up to date!")
+            cursor.close()
+            conn.close()
+            return True
+        
+        print(f"Running {len(migrations_to_run)} new migration(s)\n")
+        
+        for migration_file in migrations_to_run:
+            print(f"Running migration: {migration_file.name}")
             
             # Read SQL file
             with open(migration_file, 'r') as f:
@@ -41,16 +68,23 @@ def run_migrations():
             # Execute SQL
             cursor.execute(sql)
             
+            # Record this migration as completed
+            cursor.execute(
+                "INSERT INTO schema_migrations (version) VALUES (%s)",
+                (migration_file.name,)
+            )
+            
+            # Commit this migration
+            conn.commit()
+            
             print(f"✓ {migration_file.name} completed successfully")
         
-        # Commit all changes
-        conn.commit()
         print("\n✅ All migrations completed successfully!")
         
         cursor.close()
         conn.close()
         return True
-        
+    
     except Exception as e:
         print(f"\n❌ Error running migrations: {str(e)}")
         if conn:
