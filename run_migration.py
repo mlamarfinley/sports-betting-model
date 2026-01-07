@@ -34,6 +34,27 @@ def run_migrations():
             )
         """)
         conn.commit()
+
+                # Populate schema_migrations with already-executed migrations
+        # Check if tables from migration 001 exist
+        cursor.execute("SELECT to_regclass('public.teams')")
+        if cursor.fetchone()[0] is not None:
+            # Migration 001 was already executed
+            cursor.execute(
+                "INSERT INTO schema_migrations (version) VALUES (%s) ON CONFLICT DO NOTHING",
+                ('001_init_schema.sql',)
+            )
+        
+        # Check if tables from migration 002 exist
+        cursor.execute("SELECT to_regclass('public.nba_player_stats')")
+        if cursor.fetchone()[0] is not None:
+            # Migration 002 was already executed
+            cursor.execute(
+                "INSERT INTO schema_migrations (version) VALUES (%s) ON CONFLICT DO NOTHING",
+                ('002_sport_specific_stats.sql',)
+            )
+        
+        conn.commit()
         
         # Get list of already executed migrations
         cursor.execute("SELECT version FROM schema_migrations")
