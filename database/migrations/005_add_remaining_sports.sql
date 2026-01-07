@@ -1,6 +1,13 @@
 -- Migration: Add remaining sports tables
 -- Adds College Basketball, Tennis, Soccer, League of Legends, and Counter-Strike 2
 
+
+-- Drop tables if they exist (for idempotency)
+DROP TABLE IF EXISTS cbb_player_stats CASCADE;
+DROP TABLE IF EXISTS tennis_match_stats CASCADE;
+DROP TABLE IF EXISTS soccer_player_stats CASCADE;
+DROP TABLE IF EXISTS lol_player_stats CASCADE;
+DROP TABLE IF EXISTS cs2_player_stats CASCADE;
 -- =================================================================
 -- COLLEGE BASKETBALL (CBB)
 -- =================================================================
