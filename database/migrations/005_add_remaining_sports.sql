@@ -6,9 +6,9 @@
 -- =================================================================
 CREATE TABLE cbb_player_stats (
     id SERIAL PRIMARY KEY,
-    game_id INTEGER NOT NULL REFERENCES games(id) ON DELETE CASCADE,
-    team_id INTEGER NOT NULL REFERENCES teams(id) ON DELETE CASCADE,
-    player_id INTEGER NOT NULL REFERENCES players(id) ON DELETE CASCADE,
+    game_id UUID NOT NULL REFERENCES games(game_id) ON DELETE CASCADE,
+    team_id UUID NOT NULL REFERENCES teams(team_id) ON DELETE CASCADE,
+    player_id UUID NOT NULL REFERENCES players(player_id) ON DELETE CASCADE,
     
     -- Period tracking (H1, H2, OT)
     period INTEGER,  -- 1=first half, 2=second half, 3+=overtime
@@ -48,8 +48,8 @@ CREATE INDEX idx_cbb_stats_period ON cbb_player_stats(game_id, player_id, period
 -- =================================================================
 CREATE TABLE tennis_match_stats (
     id SERIAL PRIMARY KEY,
-    game_id INTEGER NOT NULL REFERENCES games(id) ON DELETE CASCADE,
-    player_id INTEGER NOT NULL REFERENCES players(id) ON DELETE CASCADE,
+    game_id UUID NOT NULL REFERENCES games(game_id) ON DELETE CASCADE,
+    player_id UUID NOT NULL REFERENCES players(player_id) ON DELETE CASCADE,
     
     -- Set-by-set tracking
     set_number INTEGER,  -- 1-5 for best of 5, 1-3 for best of 3
@@ -99,9 +99,9 @@ CREATE INDEX idx_tennis_match_set ON tennis_match_stats(game_id, player_id, set_
 -- =================================================================
 CREATE TABLE soccer_player_stats (
     id SERIAL PRIMARY KEY,
-    game_id INTEGER NOT NULL REFERENCES games(id) ON DELETE CASCADE,
-    team_id INTEGER NOT NULL REFERENCES teams(id) ON DELETE CASCADE,
-    player_id INTEGER NOT NULL REFERENCES players(id) ON DELETE CASCADE,
+    game_id UUID NOT NULL REFERENCES games(game_id) ON DELETE CASCADE,
+    team_id UUID NOT NULL REFERENCES teams(team_id) ON DELETE CASCADE,
+    player_id UUID NOT NULL REFERENCES players(player_id) ON DELETE CASCADE,
     
     -- Period tracking (H1, H2, ET1, ET2 for extra time)
     period INTEGER,  -- 1=first half, 2=second half, 3=ET first half, 4=ET second half
@@ -154,9 +154,9 @@ CREATE INDEX idx_soccer_stats_period ON soccer_player_stats(game_id, player_id, 
 -- =================================================================
 CREATE TABLE lol_player_stats (
     id SERIAL PRIMARY KEY,
-    game_id INTEGER NOT NULL REFERENCES games(id) ON DELETE CASCADE,
-    team_id INTEGER NOT NULL REFERENCES teams(id) ON DELETE CASCADE,
-    player_id INTEGER NOT NULL REFERENCES players(id) ON DELETE CASCADE,
+    game_id UUID NOT NULL REFERENCES games(game_id) ON DELETE CASCADE,
+    team_id UUID NOT NULL REFERENCES teams(team_id) ON DELETE CASCADE,
+    player_id UUID NOT NULL REFERENCES players(player_id) ON DELETE CASCADE,
     
     -- Champion and role
     champion VARCHAR(100),
@@ -211,9 +211,9 @@ CREATE INDEX idx_lol_player_stats_role ON lol_player_stats(role);
 -- =================================================================
 CREATE TABLE cs2_player_stats (
     id SERIAL PRIMARY KEY,
-    game_id INTEGER NOT NULL REFERENCES games(id) ON DELETE CASCADE,
-    team_id INTEGER NOT NULL REFERENCES teams(id) ON DELETE CASCADE,
-    player_id INTEGER NOT NULL REFERENCES players(id) ON DELETE CASCADE,
+    game_id UUID NOT NULL REFERENCES games(game_id) ON DELETE CASCADE,
+    team_id UUID NOT NULL REFERENCES teams(team_id) ON DELETE CASCADE,
+    player_id UUID NOT NULL REFERENCES players(player_id) ON DELETE CASCADE,
     
     -- Map and side
     map_name VARCHAR(100),
