@@ -16,6 +16,7 @@ sys.path.append(os.path.dirname(__file__))
 from esports.lol_patch_scraper import LoLPatchScraper
 from nba.nba_scraper import NBAScraper
 from nfl.nfl_scraper import NFLScraper
+from nhl.nhl_scraper import NHLScraper
 
 def run_all_scrapers():
     """Run all configured scrapers"""
@@ -56,8 +57,17 @@ def run_all_scrapers():
     except Exception as e:
         print(f"NFL scraper error: {e}")
     
+    try:
+        # Run NHL Scraper
+        print("\n--- NHL Data Scraper ---")
+        nhl_scraper = NHLScraper(database_url)
+        nhl_scraper.run(days_back=7)  # Last 7 days
+    
+    except Exception as e:
+        print(f"NHL scraper error: {e}")
+    
     # Add more scrapers here as they're created
-    # NHL, Tennis, Soccer, CS2, etc.
+    # Tennis, Soccer, CS2, College Football, etc.
     
     print(f"\n{'='*60}")
     print(f"Scraper run completed at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
