@@ -24,7 +24,6 @@ if __name__ == '__main__':
     print("Starting Flask API...")
     
     # Import and run Flask app
-    from api import app
-    
+    from api.app import app    
     port = int(os.getenv('PORT', 5000))
-    app.app.run(host='0.0.0.0', port=port, debug=False)
+    app.run(host='0.0.0.0', port=port, debug=False)
