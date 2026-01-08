@@ -62,12 +62,48 @@ def run_all_scrapers():
         print("\n--- NHL Data Scraper ---")
         nhl_scraper = NHLScraper(database_url)
         nhl_scraper.run(days_back=7)  # Last 7 days
+        from tennis.tennis_scraper import TennisScraper
+from soccer.soccer_scraper import SoccerScraper
+from esports.cs2_scraper import CS2Scraper
+from college_football.cfb_scraper import CFBScraper
     
     except Exception as e:
         print(f"NHL scraper error: {e}")
     
     # Add more scrapers here as they're created
     # Tennis, Soccer, CS2, College Football, etc.
+
+    try:
+        # Run Tennis Scraper
+        print("\n--- Tennis Data Scraper ---")
+        tennis_scraper = TennisScraper(database_url)
+        tennis_scraper.run()
+    except Exception as e:
+        print(f"Tennis scraper error: {e}")
+    
+    try:
+        # Run Soccer Scraper
+        print("\n--- Soccer Data Scraper ---")
+        soccer_scraper = SoccerScraper(database_url)
+        soccer_scraper.run()
+    except Exception as e:
+        print(f"Soccer scraper error: {e}")
+    
+    try:
+        # Run CS2 Scraper
+        print("\n--- Counter-Strike 2 Scraper ---")
+        cs2_scraper = CS2Scraper(database_url)
+        cs2_scraper.run()
+    except Exception as e:
+        print(f"CS2 scraper error: {e}")
+    
+    try:
+        # Run College Football Scraper
+        print("\n--- College Football Scraper ---")
+        cfb_scraper = CFBScraper()
+        cfb_scraper.run()
+    except Exception as e:
+        print(f"CFB scraper error: {e}")
     
     print(f"\n{'='*60}")
     print(f"Scraper run completed at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
