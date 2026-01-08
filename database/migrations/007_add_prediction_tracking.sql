@@ -16,26 +16,15 @@ CREATE TABLE IF NOT EXISTS predictions (
     model_version VARCHAR(50),
     feature_importance JSONB, -- Store which features influenced this prediction
     created_at TIMESTAMP DEFAULT NOW(),
-    INDEX idx_predictions_sport (sport),
-    INDEX idx_predictions_player (player_name),
-    INDEX idx_predictions_game_date (game_date),
-    INDEX idx_predictions_type (prediction_type)
-);
 
--- Table: prediction_results
 -- Stores actual results to verify predictions
-CREATE TABLE IF NOT EXISTS prediction_results (
     result_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    prediction_id UUID NOT NULL REFERENCES predictions(prediction_id) ON DELETE CASCADE,
     actual_value DECIMAL(10, 2) NOT NULL,
     prediction_error DECIMAL(10, 2), -- |predicted - actual|
     error_percentage DECIMAL(5, 2), -- percentage error
     is_accurate BOOLEAN, -- TRUE if within acceptable threshold
     verified_at TIMESTAMP DEFAULT NOW(),
     data_source VARCHAR(100), -- where the actual result came from
-    INDEX idx_results_prediction (prediction_id),
-    INDEX idx_results_verified (verified_at),
-    INDEX idx_results_accuracy (is_accurate)
 );
 
 -- Table: model_performance_metrics
@@ -56,9 +45,6 @@ CREATE TABLE IF NOT EXISTS model_performance_metrics (
     mae DECIMAL(10, 2), -- mean absolute error
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW(),
-    INDEX idx_metrics_sport (sport),
-    INDEX idx_metrics_type (prediction_type),
-    INDEX idx_metrics_period (time_period, period_start)
 );
 
 -- Table: model_training_history
@@ -80,9 +66,6 @@ CREATE TABLE IF NOT EXISTS model_training_history (
     feature_names JSONB,
     notes TEXT,
     created_at TIMESTAMP DEFAULT NOW(),
-    INDEX idx_training_sport (sport),
-    INDEX idx_training_version (model_version),
-    INDEX idx_training_date (training_completed_at)
 );
 
 -- Table: model_retraining_triggers
@@ -97,9 +80,9 @@ CREATE TABLE IF NOT EXISTS model_retraining_triggers (
     improvement_percentage DECIMAL(5, 2),
     triggered_at TIMESTAMP DEFAULT NOW(),
     training_id UUID REFERENCES model_training_history(training_id),
-    INDEX idx_triggers_sport (sport),
-    INDEX idx_triggers_type (trigger_type),
-    INDEX idx_triggers_date (triggered_at)
+    INDEX idx idx_triggers_sport (sport),
+    INDEX idx idx_triggers_type (trigger_type),
+    INDEX idx idx_triggers_date (triggered_at)
 );
 
 -- Table: feature_importance_tracking
@@ -112,9 +95,6 @@ CREATE TABLE IF NOT EXISTS feature_importance_tracking (
     importance_score DECIMAL(10, 6),
     rank INTEGER, -- 1 = most important
     calculated_at TIMESTAMP DEFAULT NOW(),
-    INDEX idx_importance_sport (sport),
-    INDEX idx_importance_version (model_version),
-    INDEX idx_importance_rank (rank)
 );
 
 -- Table: continuous_learning_log
@@ -126,9 +106,6 @@ CREATE TABLE IF NOT EXISTS continuous_learning_log (
     event_details JSONB,
     accuracy_impact DECIMAL(5, 2), -- how this event affected accuracy
     created_at TIMESTAMP DEFAULT NOW(),
-    INDEX idx_learning_sport (sport),
-    INDEX idx_learning_type (event_type),
-    INDEX idx_learning_date (created_at)
 );
 
 -- Function: Calculate prediction accuracy
