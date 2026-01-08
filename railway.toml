@@ -2,4 +2,4 @@
 builder = "nixpacks"
 
 [deploy]
-startCommand = "python start_app.py"
+startCommand = "python run_migration.py && gunicorn --bind 0.0.0.0:$PORT --workers 4 api.app:app"
