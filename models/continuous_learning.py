@@ -168,6 +168,8 @@ class ContinuousLearningSystem:
         conn = self.connect_db()
         cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
+
+                summary = {}
         try:
             # Retraining events
             cur.execute(
