@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS predictions (
     error_percentage DECIMAL(5, 2), -- percentage error
     is_accurate BOOLEAN, -- TRUE if within acceptable threshold
     verified_at TIMESTAMP DEFAULT NOW(),
-    data_source VARCHAR(100), -- where the actual result came from
+    data_source VARCHAR(100, -- where the actual result came from
 );
 
 -- Table: model_performance_metrics
